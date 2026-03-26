@@ -1,53 +1,119 @@
- 
+📈 Rollout Targeting Engine
 
-ur 90-Second Interview Walkthrough (use this)
+A decision-focused targeting system for optimizing direct mail campaigns using lift, incremental impact, and ROI modeling.
 
-You don’t need to overthink it — just walk them through your app like this:
+🚀 Overview
 
-🔹 1. Problem framing (10–15 sec)
+This project transforms a traditional predictive model into a business decision engine.
 
+Instead of optimizing for accuracy alone, it enables marketers to:
+
+Concentrate conversions into a smaller audience
+Reduce wasted mail spend
+Optimize targeting strategy based on ROI
+🧠 Problem
+
+Direct mail campaigns often:
+
+Target too broadly
+Have low precision
+Waste budget on low-probability customers
+
+👉 The goal:
+Identify and prioritize high-conversion customers while minimizing cost.
+
+⚙️ Solution
+
+This app:
+
+Scores the full population using a predictive model
+Ranks customers by likelihood to convert
+Simulates selection strategies (top 5%, 10%, 20%, etc.)
+Evaluates performance using business-focused metrics
+📊 Key Metrics
+
+The system focuses on decision metrics, not just model metrics:
+
+Lift vs Baseline
+Conversion Capture (%)
+Cost per Acquisition (CPQ)
+Incremental Impact (vs random / holdout)
+Revenue & ROI
+💡 Example Insight
+
+Selecting the top 20% of customers captures ~40% of conversions
+with ~2x lift, while significantly reducing mail volume.
+
+🔬 Incremental Measurement
+
+To avoid misleading results:
+
+Uses random / holdout groups as baseline
+Estimates true incremental lift
+Separates correlation vs causal impact
+💰 Decision Engine
+
+The app includes:
+
+Mail cost modeling (~$0.47 per piece)
+Revenue assumptions (premium per policy)
+ROI optimization across selection thresholds
+
+👉 Output:
+Recommended targeting % that maximizes ROI
+
+🖥️ App Features
+Interactive selection threshold (slider)
+Lift curve visualization
+Decile performance table
+ROI optimization engine
+Real-time business impact metrics
+🛠️ Tech Stack
+Python
+Streamlit
+Pandas / NumPy
+SQL Server (ODBC)
+Matplotlib
+▶️ Run Locally
+cd C:\Users\xxxxx
+streamlit run app.py
+🎯 90-Second Walkthrough (Interview Ready)
+
+Problem
 “We were sending large volumes of direct mail with low precision, so I built a targeting system to concentrate conversions into a smaller, higher-performing segment.”
 
-🔹 2. What the model does (15–20 sec)
+Approach
+“I score the population, rank customers, and simulate different selection thresholds like top 10% or 20%.”
 
-“I score the full population and rank customers by likelihood to convert, then simulate different selection thresholds — like top 10%, 20%, etc.”
+Metrics
+“I focus on business impact — lift, capture rate, cost per acquisition, and incremental performance.”
 
-👉 (point to slider in app)
+Insight
+“For example, selecting the top 20% captures ~40% of conversions with ~2x lift while reducing mail volume.”
 
-🔹 3. Business metrics (this is the key part)
+Incrementality
+“I compare against random and holdout groups to estimate true incremental lift.”
 
-“Instead of just looking at model metrics, I focused on business outcomes:
+Decision Layer
+“I added cost and revenue modeling to optimize for ROI, not just model accuracy.”
 
-lift vs baseline
-% of conversions captured
-cost per acquisition
-and incremental impact”
-👉 (point to top metrics)
+Close
+“This turns the model into a decision engine where the business can choose the optimal strategy based on budget and goals.”
 
-🔹 4. The insight (THIS is the punchline)
+🔥 Why This Matters
 
-“For example, selecting the top 20% of the file captures ~40% of conversions with ~2x lift, while significantly reducing mail volume.”
+This project demonstrates:
 
-👉 This is your money line
+Transition from modeling → decision science
+Focus on incremental impact (causal thinking)
+Alignment with real business outcomes (ROI)
 
-🔹 5. Incremental / causal thinking (this differentiates you)
+📌 Future Enhancements
+A/B test simulation
+Budget-constrained optimization
+Multi-channel attribution
+Automated campaign recommendations
 
-“I also compare against random and holdout groups to estimate incremental lift — so we’re not just measuring correlation, but actual impact.”
-
-🔹 6. Decision-making layer (this is senior-level)
-
-“Then I added cost and revenue modeling so we can optimize for ROI, not just accuracy.”
-
-👉 (point to ROI + optimal selection)
-
-🔹 7. Close strong (10 sec)
-
-“So instead of a static model, this becomes a decision engine — where the business can choose the optimal targeting strategy based on budget and goals.”
-
-🔥 Why this works
-
-You are hitting all the things companies care about:
-
-Not just model → decision system
-Not just prediction → incremental impact
-Not just accuracy → ROI optimization
+👤 Author
+Shawn Alexander
+Senior Data Scientist | Marketing Analytics | Decision Science
