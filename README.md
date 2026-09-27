@@ -1,119 +1,64 @@
-📈 Rollout Targeting Engine
+# 📈 Rollout Causal Uplift Targeting Engine
 
-A decision-focused targeting system for optimizing direct mail campaigns using lift, incremental impact, and ROI modeling.
+A decision-focused direct mail targeting system designed to identify customers whose probability of conversion is **increased by receiving a marketing treatment**.
 
-🚀 Overview
+## 🚀 Overview
 
-This project transforms a traditional predictive model into a business decision engine.
+Traditional propensity models answer:
 
-Instead of optimizing for accuracy alone, it enables marketers to:
+> **Who is most likely to convert?**
 
-Concentrate conversions into a smaller audience
-Reduce wasted mail spend
-Optimize targeting strategy based on ROI
-🧠 Problem
+This project addresses a more useful marketing question:
 
-Direct mail campaigns often:
+> **Who is more likely to convert because we mail them?**
 
-Target too broadly
-Have low precision
-Waste budget on low-probability customers
+The system uses historical treatment and holdout observations to estimate customer-level incremental response and prioritize customers based on the expected impact of the campaign rather than response probability alone.
 
-👉 The goal:
-Identify and prioritize high-conversion customers while minimizing cost.
+The result is a targeting framework that separates customers who are naturally likely to convert from customers whose behavior may actually be changed by marketing.
 
-⚙️ Solution
+---
 
-This app:
+## 🧠 Problem
 
-Scores the full population using a predictive model
-Ranks customers by likelihood to convert
-Simulates selection strategies (top 5%, 10%, 20%, etc.)
-Evaluates performance using business-focused metrics
-📊 Key Metrics
+A high-propensity customer is not necessarily a good marketing target.
 
-The system focuses on decision metrics, not just model metrics:
+Some customers may convert whether they receive direct mail or not. Mailing those customers increases campaign cost without necessarily creating incremental conversions.
 
-Lift vs Baseline
-Conversion Capture (%)
-Cost per Acquisition (CPQ)
-Incremental Impact (vs random / holdout)
-Revenue & ROI
-💡 Example Insight
+The targeting problem therefore becomes:
 
-Selecting the top 20% of customers captures ~40% of conversions
-with ~2x lift, while significantly reducing mail volume.
+**Identify customers with the greatest expected incremental response to treatment.**
 
-🔬 Incremental Measurement
+---
 
-To avoid misleading results:
+## ⚙️ Modeling Approach
 
-Uses random / holdout groups as baseline
-Estimates true incremental lift
-Separates correlation vs causal impact
-💰 Decision Engine
+The model estimates two potential outcomes for each customer:
 
-The app includes:
+- **P(Response | Mailed)**
+- **P(Response | Not Mailed)**
 
-Mail cost modeling (~$0.47 per piece)
-Revenue assumptions (premium per policy)
-ROI optimization across selection thresholds
+Customer-level uplift is then calculated as:
 
-👉 Output:
-Recommended targeting % that maximizes ROI
+```text
+UPLIFT_SCORE =
+P(Response | Mailed)
+-
+P(Response | Not Mailed)
+```
 
-🖥️ App Features
-Interactive selection threshold (slider)
-Lift curve visualization
-Decile performance table
-ROI optimization engine
-Real-time business impact metrics
-🛠️ Tech Stack
-Python
-Streamlit
-Pandas / NumPy
-SQL Server (ODBC)
-Matplotlib
-▶️ Run Locally
-cd C:\Users\xxxxx
-streamlit run app.py
-🎯 90-Second Walkthrough (Interview Ready)
+Customers are ranked by this estimated treatment effect.
 
-Problem
-“We were sending large volumes of direct mail with low precision, so I built a targeting system to concentrate conversions into a smaller, higher-performing segment.”
+A customer with high response probability but little difference between the two predictions may rank below a customer whose overall response probability is lower but whose behavior appears substantially more responsive to treatment.
 
-Approach
-“I score the population, rank customers, and simulate different selection thresholds like top 10% or 20%.”
+---
 
-Metrics
-“I focus on business impact — lift, capture rate, cost per acquisition, and incremental performance.”
+## 🌲 Model
 
-Insight
-“For example, selecting the top 20% captures ~40% of conversions with ~2x lift while reducing mail volume.”
+The targeting engine uses gradient-boosted decision trees with **XGBoost**.
 
-Incrementality
-“I compare against random and holdout groups to estimate true incremental lift.”
+The modeling workflow includes:
 
-Decision Layer
-“I added cost and revenue modeling to optimize for ROI, not just model accuracy.”
-
-Close
-“This turns the model into a decision engine where the business can choose the optimal strategy based on budget and goals.”
-
-🔥 Why This Matters
-
-This project demonstrates:
-
-Transition from modeling → decision science
-Focus on incremental impact (causal thinking)
-Alignment with real business outcomes (ROI)
-
-📌 Future Enhancements
-A/B test simulation
-Budget-constrained optimization
-Multi-channel attribution
-Automated campaign recommendations
-
-👤 Author
-Shawn Alexander
-Senior Data Scientist | Marketing Analytics | Decision Science
+- Historical treatment and holdout observations
+- Train/test separation
+- Class-imbalance handling
+- `
